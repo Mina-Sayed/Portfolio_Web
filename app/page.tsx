@@ -290,8 +290,13 @@ export default function Home() {
     </main>
   );
 }
+interface SkillCardProps {
+  title: string;
+  icon: JSX.Element;
+  skills: string[];
+}
 
-function SkillCard({ title, icon, skills }) {
+function SkillCard({ title, icon, skills }: SkillCardProps) {
   return (
     <Card className="p-6">
       <div className="flex items-center mb-4">
