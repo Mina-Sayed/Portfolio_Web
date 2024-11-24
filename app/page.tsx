@@ -89,6 +89,12 @@ export default function Home() {
         'Developed a microservice using Python to handle large datasets and provide analytical insights for business applications.',
       tech: ['Python', 'Data Analytics', 'Microservices'],
     },
+     {
+    title: 'Crypto Real-Time',
+    description: 'A real-time cryptocurrency tracking application using Next.js full stack.',
+    tech: ['Next.js', 'Node.js', 'React', 'WebSocket'],
+    link: 'https://crypto-real-time-silk.vercel.app/',
+  },
   ];
 
   return (
