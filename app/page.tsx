@@ -89,12 +89,12 @@ export default function Home() {
         'Developed a microservice using Python to handle large datasets and provide analytical insights for business applications.',
       tech: ['Python', 'Data Analytics', 'Microservices'],
     },
-     {
-    title: 'Crypto Real-Time',
-    description: 'A real-time cryptocurrency tracking application using Next.js full stack.',
-    tech: ['Next.js', 'Node.js', 'React', 'WebSocket'],
-    link: 'https://crypto-real-time-silk.vercel.app/',
-  },
+    {
+      title: 'Crypto Real-Time',
+      description: 'A real-time cryptocurrency tracking application using Next.js full stack.',
+      tech: ['Next.js', 'Node.js', 'React', 'WebSocket'],
+      link: 'https://crypto-real-time-silk.vercel.app/',
+    },
   ];
 
   return (
@@ -237,7 +237,11 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
               <Card key={index} className="p-6">
-                <h3 className="text-xl font-semibold mb-3">{project.title}</h3>
+                <h3 className="text-xl font-semibold mb-3">
+                  <a href={project.link} target="_blank" rel="noopener noreferrer">
+                    {project.title}
+                  </a>
+                </h3>
                 <p className="text-muted-foreground mb-4">
                   {project.description}
                 </p>
