@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#070b16" />
+  <title>Mina's Dev Journey</title>
+</head>
+<body style="margin:0;background:#070b16;color:#f7f8ff;font-family:monospace">
+  <p id="status" style="padding:24px">Loading Mina's Dev Journey…</p>
+  <script>
+    (async () => {
+      const response = await fetch('./index.html?v=2', { cache: 'no-store' });
+      if (!response.ok) throw new Error('Could not fetch the game package.');
+
+      const source = await response.text();
+      const match = source.match(/const s="([\s\S]*?)",b=Uint8Array/);
+      if (!match) throw new Error('Game package was not found.');
+
+      let encoded = match[1]
+        .replace(/\[\.\.\.truncated for display in this interface but full payload supplied\.\.\.\]/gi, '')
+        .replace(/[^A-Za-z0-9+/=]/g, '');
+
+      const paddingIndex = encoded.indexOf('=');
+      if (paddingIndex !== -1) {
+        encoded = encoded.slice(0, paddingIndex) + encoded.slice(paddingIndex).replace(/[^=]/g, '');
+      }
+
+      const bytes = Uint8Array.from(atob(encoded), char => char.charCodeAt(0));
+      const html = await new Response(
+        new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'))
+      ).text();
+
+      document.open();
+      document.write(html);
+      document.close();
+    })().catch(error => {
+      document.getElementById('status').textContent = 'Unable to load game: ' + error.message;
+      console.error(error);
+    });
+  </script>
+</body>
+</html>
